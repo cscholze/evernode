@@ -35,13 +35,24 @@ app.get('/', (req, res, next) => {
 app.get('/notes/new', (req, res, next) => {
     res.render('new-note');
 });
-app.post('/notes', (req, res, next) => {
-    console.log(req.body);
 
+app.get('/notes/:id', (req, res, next) => {
+  const note = Note.findById(req.params.id, (err, note) => {
+    if (err) throw err;
+
+    res.render('show-note', {
+      note: note
+    });
+
+
+  });
+});
+
+app.post('/notes', (req, res, next) => {
     Note.create( req.body, (err, note) => {
       if (err) throw err;
-      console.log(note);
-      res.redirect('/');
+
+      res.redirect(`/notes/${note._id}`);
     });
 
 });
@@ -53,7 +64,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
-  console.log('Connection establish to mongoDB');
+  console.log('Connection established and open to mongoDB');
 });
 
 
