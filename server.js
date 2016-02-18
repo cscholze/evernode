@@ -23,9 +23,8 @@ app.use(methodOverride('_method'));
 app.use(routes);
 
 app.get('/', (req, res, next) => {
-  res.send('Server Running');
+  res.redirect('/notes');
 });
-
 
 
 // DATABASE

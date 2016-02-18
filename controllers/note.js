@@ -25,38 +25,29 @@ module.exports = {
 
 
   show(req, res, next) {
-    const note = Note.findById(req.params.id, (err, note) => {
-      if (err) throw err;
-
-      res.render('show-note', {
-        note: note
-      });
-    });
+      res.render('show-note', {note: req.note});
   },
 
 
   destroy(req, res, next) {
-    Note.findByIdAndRemove(req.params.id, (err) => {
+    req.note.remove((err) => {
       if (err) throw err;
+
       res.redirect('/notes');
     });
   },
 
 
   edit(req, res, next) {
-    Note.findById(req.params.id, (err, note) => {
-      if (err) throw err;
-
-      res.render('new-note', {note: note});
-    });
+      res.render('new-note', {note: req.note});
   },
 
 
   update(req, res, next) {
-    Note.findByIdAndUpdate(req.params.id, req.body, (err, note) => {
+    req.note.update(req.body, (err) => {
       if (err) throw err;
 
-      res.redirect('/notes');
+      res.redirect(`/notes/${req.note._id}`);
     });
   }
 }
