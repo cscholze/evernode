@@ -3,6 +3,7 @@
 // MODULE DEPENDENCIES
 const bodyParser = require('body-parser');
 const express = require('express');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const routes = require('./routes/route');
 
@@ -12,12 +13,18 @@ const port = process.env.PORT || 3000;
 
 // MIDDLEWARE
 app.set('view engine', 'jade');
-
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+app.use(methodOverride('_method'));
 
+
+// ROUTES
 app.use(routes);
+
+app.get('/', (req, res, next) => {
+  res.send('Server Running');
+});
 
 
 
