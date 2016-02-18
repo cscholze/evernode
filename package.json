@@ -24,9 +24,10 @@
     "mongoose": "^4.4.4"
   },
   "devDependencies": {
+    "eslint": "^2.1.0",
     "nodemon": "^1.8.1"
   },
-  "eslingConfig": {
+  "eslintConfig": {
     "env": {
       "browser": true,
       "node": true,
