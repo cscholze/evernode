@@ -1,11 +1,18 @@
-h1 New Note
+if note
+  h1 Edit Note
+else
+  h1 New Note
 
-form(method='POST', action='/notes')
+- var item = note || {title: '', test: ''}
+- var override = note ? '/' + note._id + '?_method=PUT' : ''
+form(method='POST', action='/notes#{override}')
   .input-group
     label(for='title') Title
-    input#title(type='text', name='title')
+    input#title(type='text', name='title', value='#{item.title}')
   .input-group
     label(for='text') Text
-    textarea#text(name='text')
+    textarea#text(name='text')= item.text
   .input-group
     input(type='submit', value='Save Note')
+form(action='/notes')
+  input(type='submit', value='Cancel')

@@ -42,3 +42,21 @@ module.exports.destroy = (req, res, next) => {
   });
 };
 
+
+module.exports.edit = (req, res, next) => {
+  Note.findById(req.params.id, (err, note) => {
+    if (err) throw err;
+
+    res.render('new-note', {note: note});
+  });
+};
+
+
+module.exports.update = (req, res, next) => {
+  Note.findByIdAndUpdate(req.params.id, req.body, (err, note) => {
+    if (err) throw err;
+
+    res.redirect('/notes');
+  });
+};
+

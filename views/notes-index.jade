@@ -1,5 +1,8 @@
 h1 Notes
 
+form(action='/notes/new')
+  input(type='submit', value='New Note')
+
 ul
   each note in notes
     li: a(href='/notes/#{note._id}')= note.title
