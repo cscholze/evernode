@@ -1,24 +1,14 @@
 'use strict';
 
-
-// DEPENDENCIES
+// MODULE DEPENDENCIES
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const Note = require('./models/note');
 
 // SERVER VARIABLES
 const app = express();
 const port = process.env.PORT || 3000;
-
-// MONGOOSE SCHEMA
-const noteSchema = mongoose.Schema({
-  title: String,
-  text: String
-});
-
-// MONGOOSE MODELS
-const Note = mongoose.model('Note', noteSchema);
-
 
 // MIDDLEWARE
 app.set('view engine', 'jade');
