@@ -1,18 +1,31 @@
 'use strict';
 
+
 // DEPENDENCIES
 const bodyParser = require('body-parser');
 const express = require('express');
+const mongoose = require('mongoose');
 
 // SERVER VARIABLES
 const app = express();
 const port = process.env.PORT || 3000;
 
+// MONGOOSE SCHEMA
+const noteSchema = mongoose.Schema({
+  title: String,
+  text: String
+});
+
+// MONGOOSE MODELS
+const Note = mongoose.model('Note', noteSchema);
+
 
 // MIDDLEWARE
 app.set('view engine', 'jade');
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // ROUTES
 app.get('/', (req, res, next) => {
@@ -24,7 +37,23 @@ app.get('/notes/new', (req, res, next) => {
 });
 app.post('/notes', (req, res, next) => {
     console.log(req.body);
-    res.redirect('/');
+
+    Note.create( req.body, (err, note) => {
+      if (err) throw err;
+      console.log(note);
+      res.redirect('/');
+    });
+
+});
+
+// DATABASE
+mongoose.connect('mongodb://localhost:27017/evernode');
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('Connection establish to mongoDB');
 });
 
 
