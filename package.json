@@ -23,7 +23,7 @@
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "method-override": "^2.3.5",
-    "mongoose": "^4.4.4"
+    "mongoose": "^5.3.9"
   },
   "devDependencies": {
     "eslint": "^2.1.0",
